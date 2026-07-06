@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan Your Trip — Batticaloa Tourism</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏝️</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+<div id="loader"><div class="loader-ring"></div><div class="loader-text">Batticaloa Tourism</div></div>
+<div id="nav-placeholder"></div>
+
+<div class="page-hero">
+  <div class="page-hero-bg"><img src="https://picsum.photos/seed/plan-hero-map/1920/800.jpg" alt="Plan Your Trip"></div>
+  <div class="page-hero-content">
+    <div class="breadcrumb"><a href="index.html">Home</a><span class="iconify" data-icon="lucide:chevron-right" style="font-size:.75rem"></span>Plan Your Trip</div>
+    <h1>Route Map — <span class="text-gradient">Plan Your Trip</span></h1>
+    <p style="color:var(--text-70);margin-top:.75rem">Click locations, build itineraries, and plan your perfect Batticaloa journey.</p>
+  </div>
+</div>
+
+<!-- Route Map -->
+<section class="section section-bg-dark">
+  <div class="section-container">
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:2rem;align-items:start">
+      <div class="map-container reveal" style="min-height:500px;position:relative">
+        <img src="https://picsum.photos/seed/batti-map-terrain/1000/600.jpg" alt="Map" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:.35;filter:hue-rotate(170deg) saturate(.3) brightness(.5)">
+        <svg viewBox="0 0 800 500" style="position:absolute;inset:0;width:100%;height:100%;z-index:2">
+          <path d="M150,180 Q300,100 450,160 Q600,120 700,200 Q650,280 500,300 Q350,340 200,300 Q100,260 150,180Z" fill="rgba(14,139,139,.12)" stroke="rgba(45,212,191,.25)" stroke-width="1.5"/>
+          <text x="380" y="220" fill="rgba(45,212,191,.4)" font-size="13" font-family="Playfair Display" text-anchor="middle">Batticaloa Lagoon</text>
+        </svg>
+        <div id="mapPins"></div>
+        <div class="map-info-panel" id="mapInfoPanel"><div id="mapInfoContent"></div></div>
+        <div style="position:absolute;top:1rem;right:1rem;background:var(--bg-dark);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:.75rem;padding:.75rem;z-index:10">
+          <p style="font-size:.65rem;font-weight:600;color:var(--text-50);margin-bottom:.4rem">LEGEND</p>
+          <div style="display:flex;flex-direction:column;gap:.3rem;font-size:.7rem;color:var(--text-50)">
+            <span style="display:flex;align-items:center;gap:.4rem"><span style="width:8px;height:8px;border-radius:50%;background:#2DD4BF"></span>Heritage</span>
+            <span style="display:flex;align-items:center;gap:.4rem"><span style="width:8px;height:8px;border-radius:50%;background:#FBBF24"></span>Beach</span>
+            <span style="display:flex;align-items:center;gap:.4rem"><span style="width:8px;height:8px;border-radius:50%;background:#4ADE80"></span>Nature</span>
+            <span style="display:flex;align-items:center;gap:.4rem"><span style="width:8px;height:8px;border-radius:50%;background:#FB923C"></span>Culture</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-d2">
+        <div class="card sticky" style="padding:1.5rem">
+          <h3 style="font-family:var(--font-display);font-size:1.15rem;font-weight:700;margin-bottom:1.25rem;display:flex;align-items:center;gap:.5rem"><span class="iconify" data-icon="lucide:route" style="color:var(--primary-light)"></span>Quick Trip Builder</h3>
+          <div class="form-group"><label class="form-label">Trip Duration</label><select class="form-select"><option>Half Day</option><option>Full Day</option><option selected>2 Days</option><option>3 Days</option><option>5 Days</option><option>1 Week</option></select></div>
+          <div class="form-group"><label class="form-label">Interests</label><div style="display:flex;flex-wrap:wrap;gap:.35rem"><button class="ai-chip" onclick="this.classList.toggle('bg-primary');this.style.background=this.style.background?'':'rgba(14,139,139,.25)'">🏖️ Beaches</button><button class="ai-chip" onclick="this.style.background=this.style.background?'':'rgba(14,139,139,.25)'">🏛️ Heritage</button><button class="ai-chip" onclick="this.style.background=this.style.background?'':'rgba(14,139,139,.25)'">🦁 Wildlife</button><button class="ai-chip" onclick="this.style.background=this.style.background?'':'rgba(14,139,139,.25)'">🍽️ Food</button><button class="ai-chip" onclick="this.style.background=this.style.background?'':'rgba(14,139,139,.25)'">🎭 Culture</button><button class="ai-chip" onclick="this.style.background=this.style.background?'':'rgba(14,139,139,.25)'">🚤 Water Sports</button></div></div>
+          <div class="form-group"><label class="form-label">Travel Style</label><select class="form-select"><option>Family Friendly</option><option selected>Couples</option><option>Solo Traveler</option><option>Adventure Seeker</option><option>Budget Traveler</option></select></div>
+          <button onclick="generateTrip()" class="btn btn-primary" style="width:100%;justify-content:center"><span class="iconify" data-icon="lucide:sparkles"></span>Generate Itinerary</button>
+          <div id="tripResult" class="hidden" style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border)"><h4 style="font-size:.8rem;font-weight:600;color:var(--primary-light);margin-bottom:.75rem">Your Suggested Itinerary</h4><div id="tripContent" style="display:flex;flex-direction:column;gap:.6rem"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Getting Around -->
+<section class="section section-bg-mid" id="transport">
+  <div class="section-container">
+    <div class="section-header reveal"><p class="section-label">Getting Around</p><h2 class="section-title">Transport <span class="gradient">Options</span></h2></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem">
+      <div class="card reveal reveal-d1" style="padding:1.5rem;text-align:center"><div style="width:50px;height:50px;border-radius:1rem;background:var(--primary-dim);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem"><span class="iconify text-2xl" data-icon="lucide:car" style="color:var(--primary-light)"></span></div><h3 style="font-weight:700;margin-bottom:.35rem">Private Car</h3><p style="font-size:.8rem;color:var(--text-50)">Most flexible. ₹5,000-8,000/day with driver.</p></div>
+      <div class="card reveal reveal-d2" style="padding:1.5rem;text-align:center"><div style="width:50px;height:50px;border-radius:1rem;background:var(--primary-dim);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem"><span class="iconify text-2xl" data-icon="lucide:bike" style="color:var(--primary-light)"></span></div><h3 style="font-weight:700;margin-bottom:.35rem">Tuk-Tuk</h3><p style="font-size:.8rem;color:var(--text-50)">Great for short trips. ₹50-200 per ride.</p></div>
+      <div class="card reveal reveal-d3" style="padding:1.5rem;text-align:center"><div style="width:50px;height:50px;border-radius:1rem;background:var(--primary-dim);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem"><span class="iconify text-2xl" data-icon="lucide:bus" style="color:var(--primary-light)"></span></div><h3 style="font-weight:700;margin-bottom:.35rem">Public Bus</h3><p style="font-size:.8rem;color:var(--text-50)">Budget friendly. ₹50-300 for local routes.</p></div>
+      <div class="card reveal reveal-d4" style="padding:1.5rem;text-align:center"><div style="width:50px;height:50px;border-radius:1rem;background:var(--primary-dim);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem"><span class="iconify text-2xl" data-icon="lucide:ship" style="color:var(--primary-light)"></span></div><h3 style="font-weight:700;margin-bottom:.35rem">Boat</h3><p style="font-size:.8rem;color:var(--text-50)">For lagoon exploration. ₹1,500-3,000 per trip.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Best Time to Visit -->
+<section class="section section-bg-dark" id="weather">
+  <div class="section-container" style="max-width:48rem">
+    <div class="section-header reveal"><p class="section-label">When to Visit</p><h2 class="section-title">Best Time to <span class="gradient">Visit</span></h2></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem" class="reveal">
+      <div class="card" style="padding:1.5rem;text-align:center;border-color:rgba(45,212,191,.3)"><p style="font-size:1.5rem;margin-bottom:.5rem">☀️</p><h3 style="font-weight:700;color:var(--primary-light);margin-bottom:.35rem">Jan – Mar</h3><p style="font-size:.85rem;color:var(--text-50)">Dry, sunny, 27-32°C. Great for sightseeing.</p></div>
+      <div class="card" style="padding:1.5rem;text-align:center;border-color:rgba(251,191,36,.3)"><p style="font-size:1.5rem;margin-bottom:.5rem">🏖️</p><h3 style="font-weight:700;color:var(--accent-warm);margin-bottom:.35rem">Apr – Sep</h3><p style="font-size:.85rem;color:var(--text-50)">Dry, 28-35°C. Best for beaches & water sports.</p><span style="display:inline-block;margin-top:.5rem;padding:.2rem .6rem;background:var(--accent-dim);color:var(--accent);font-size:.65rem;font-weight:600;border-radius:99px">BEST TIME</span></div>
+      <div class="card" style="padding:1.5rem;text-align:center"><p style="font-size:1.5rem;margin-bottom:.5rem">🌧️</p><h3 style="font-weight:700;margin-bottom:.35rem">Oct – Dec</h3><p style="font-size:.85rem;color:var(--text-50)">Some rain, 25-30°C. Lush green landscapes.</p></div>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<button class="ai-fab" id="aiFab" aria-label="AI Travel Assistant"><span class="ai-fab-pulse"></span><span class="iconify" id="aiFabIcon" data-icon="lucide:bot"></span></button>
+<div class="ai-chat" id="aiChat"><div class="ai-header"><div class="ai-header-left"><div class="ai-avatar"><span class="iconify text-white text-sm" data-icon="lucide:bot"></span></div><div><p style="font-weight:600;font-size:.85rem">BattiBuddy</p><div class="ai-status"><span class="ai-status-dot"></span>Online</div></div></div><button onclick="toggleAI()" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--text-50)"><span class="iconify" data-icon="lucide:x"></span></button></div><div class="ai-messages" id="aiMessages"><div class="ai-msg bot"><p>🗺️ Planning your trip? Ask me about routes, transport, or say "plan my trip"!</p></div></div><div class="ai-suggestions" id="aiSuggestions"><button class="ai-chip" onclick="sendAI('How do I get to Batticaloa?')">🚗 Getting here</button><button class="ai-chip" onclick="sendAI('Plan a 3-day trip')">✨ Plan my trip</button><button class="ai-chip" onclick="sendAI('Best time to visit?')">🌤️ Weather</button></div><div class="ai-input-bar"><form onsubmit="handleAISend(event)" style="display:flex;gap:.5rem;width:100%"><input type="text" id="aiInput" placeholder="Ask about planning..." class="ai-input"><button type="submit" class="ai-send"><span class="iconify text-white" data-icon="lucide:send"></span></button></form></div></div>
+<button class="back-top" id="backTop"><span class="iconify" data-icon="lucide:chevron-up"></span></button>
+<div class="cookie-bar" id="cookieBar"><div style="max-width:80rem;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap"><p style="font-size:.85rem;color:var(--text-50)">We use cookies. <a href="#" style="color:var(--primary-light);text-decoration:underline">Privacy Policy</a></p><button style="padding:.5rem 1.25rem;background:var(--primary);color:#fff;font-size:.85rem;font-weight:600;border-radius:.5rem;cursor:pointer">Got it!</button></div></div>
+
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<script src="js/common.js"></script>
+<script src="js/ai-chat.js"></script>
+<script src="js/map.js"></script>
+<script>document.addEventListener('DOMContentLoaded', () => { initMap(); });</script>
+</body>
+</html>

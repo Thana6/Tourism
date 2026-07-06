@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events — Batticaloa Tourism</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏝️</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/common.css">
+  <style>
+    .event-card{transition:all .4s ease}
+    .event-card.hidden-by-filter{display:none}
+    .no-results{text-align:center;padding:3rem 1rem;color:var(--text-50);display:none}
+    .no-results.show{display:block}
+    .no-results .iconify{font-size:3rem;color:var(--text-30);margin-bottom:1rem}
+    .event-count{font-size:.85rem;color:var(--text-30);margin-bottom:1.5rem;text-align:center}
+    .event-count span{color:var(--primary-light);font-weight:600}
+    .event-featured{position:relative}
+    .event-featured::before{content:'FEATURED';position:absolute;top:1rem;left:1rem;padding:.25rem .6rem;background:linear-gradient(135deg,var(--accent-warm),var(--accent));color:var(--bg-darkest);font-size:.6rem;font-weight:700;border-radius:99px;letter-spacing:.1em;z-index:2}
+    .event-register-modal{position:fixed;inset:0;z-index:200;background:rgba(4,17,29,.9);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all .3s ease}
+    .event-register-modal.open{opacity:1;visibility:visible}
+    .event-register-box{background:var(--bg-medium);border:1px solid var(--border-hover);border-radius:var(--radius-2xl);padding:2rem;max-width:28rem;width:90%;transform:scale(.95) translateY(10px);transition:transform .3s ease}
+    .event-register-modal.open .event-register-box{transform:scale(1) translateY(0)}
+  </style>
+</head>
+<body>
+<div id="loader"><div class="loader-ring"></div><div class="loader-text">Batticaloa Tourism</div></div>
+<div id="nav-placeholder"></div>
+
+<div class="page-hero">
+  <div class="page-hero-bg"><img src="https://picsum.photos/seed/events-hero-fest/1920/800.jpg" alt="Events"></div>
+  <div class="page-hero-content">
+    <div class="breadcrumb"><a href="index.html">Home</a><span class="iconify" data-icon="lucide:chevron-right" style="font-size:.75rem"></span>Events</div>
+    <h1>Upcoming <span class="text-gradient">Events</span></h1>
+    <p style="color:var(--text-70);margin-top:.75rem">Festivals, cultural celebrations, sports, and more — experience Batticaloa's vibrant calendar.</p>
+  </div>
+</div>
+
+<section class="section section-bg-dark">
+  <div class="section-container">
+
+    <!-- Filter Tabs -->
+    <div style="display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:.75rem" class="reveal" id="filterTabs">
+      <button class="btn btn-sm btn-primary filter-btn active" data-filter="all" style="border-radius:99px">All Events</button>
+      <button class="btn btn-sm btn-outline filter-btn" data-filter="festival" style="border-radius:99px">Festivals</button>
+      <button class="btn btn-sm btn-outline filter-btn" data-filter="cultural" style="border-radius:99px">Cultural</button>
+      <button class="btn btn-sm btn-outline filter-btn" data-filter="sports" style="border-radius:99px">Sports</button>
+      <button class="btn btn-sm btn-outline filter-btn" data-filter="food" style="border-radius:99px">Food</button>
+      <button class="btn btn-sm btn-outline filter-btn" data-filter="heritage" style="border-radius:99px">Heritage</button>
+      <button class="btn btn-sm btn-outline filter-btn" data-filter="carnival" style="border-radius:99px">Carnival</button>
+    </div>
+
+    <!-- Event Count -->
+    <p class="event-count reveal" id="eventCount">Showing <span>10</span> events</p>
+
+    <!-- Events Grid -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem" id="eventsGrid">
+
+      <!-- Event 1: Featured -->
+      <div class="event-card event-featured reveal reveal-d1" data-category="festival">
+        <div class="event-img"><img src="https://picsum.photos/seed/lagoon-festival/600/340.jpg" alt="Lagoon Festival"></div>
+        <div class="event-body">
+          <div style="display:flex;gap:1rem;align-items:flex-start">
+            <div class="event-date-box"><span class="event-date-day">15</span><span class="event-date-month">AUG</span><span class="event-date-year">2026</span></div>
+            <div style="flex:1;min-width:0">
+              <span class="event-tag">Festival</span>
+              <h3 class="event-title">Batticaloa Lagoon Festival</h3>
+              <p class="event-desc">Three-day celebration with boat races, cultural performances, food stalls, and fireworks over the lagoon.</p>
+              <div class="event-meta">
+                <span><span class="iconify" data-icon="lucide:map-pin"></span>Lagoon Front</span>
+                <span><span class="iconify" data-icon="lucide:clock"></span>3 Days</span>
+                <span><span class="iconify" data-icon="lucide:users"></span>Free</span>
+              </div>
+              <button onclick="openRegister('Batticaloa Lagoon Festival','Aug 15-17, 2026')" class="btn btn-sm btn-primary" style="margin-top:.75rem;border-radius:99px">Register Interest</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event 2 -->
+      <div class="event-card reveal reveal-d2" data-category="carnival">
+        <div class="event-img"><img src="https://picsum.photos/seed/beach-carnival-kallady/600/340.jpg" alt="Beach Carnival"></div>
+        <div class="event-body">
+          <div style="display:flex;gap:1rem;align-items:flex-start">
+            <div class="event-date-box"><span class="event-date-day">05</span><span class="event-date-month">SEP</span><span class="event-date-year">2026</span></div>
+            <div style="flex:1;min-width:0">
+              <span class="event-tag">Carnival</span>
+              <h3 class="event-title">Kallady Beach Carnival</h3>
+              <p class="event-desc">Beach sports, live music, seafood feasts, and family fun along the golden shore.</p>
+              <div class="event-meta">
+                <span><span class="iconify" data-icon="lucide:map-pin"></span>Kallady Beach</span>
+                <span><span class="iconify" data-icon="lucide:clock"></span>2 Days</span>
+                <span><span class="iconify" data-icon="lucide:users"></span>Free</span>
+              </div>
+              <button onclick="openRegister('Kallady Beach Carnival','Sep 5-6, 2026')" class="btn btn-sm btn-outline" style="margin-top:.75rem;border-radius:99px">Register Interest</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event 3 -->
+      <div class="event-card reveal reveal-d3" data-category="heritage">
+        <div class="event-img"><img src="https://picsum.photos/seed/heritage-week-fort/600/340.jpg" alt="Heritage Week"></div>
+        <div class="event-body">
+          <div style="display:flex;gap:1rem;align-items:flex-start">
+            <div class="event-date-box"><span class="event-date-day">20</span><span class="event-date-month">OCT</span><span class="event-date-year">2026</span></div>
+            <div style="flex:1;min-width:0">
+              <span class="event-tag">Heritage</span>
+              <h3 class="event-title">Dutch Fort Heritage Week</h3>
+              <p class="event-desc">Guided tours, exhibitions, colonial-era reenactments, and heritage walks through the fort.</p>
+              <div class="event-meta">
+                <span><span class="iconify" data-icon="lucide:map-pin"></span>Dutch Fort</span>
+                <span><span class="iconify" data-icon="lucide:clock"></span>7 Days</span>
+                <span><span class="iconify" data-icon="lucide:ticket"></span>₹500</span>
+              </div>
+              <button onclick="openRegister('Dutch Fort Heritage Week','Oct 20-26, 2026')" class="btn btn-sm btn-outline" style="margin-top:.75rem;border-radius:99px">Register Interest</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event 4 -->
+      <div class="event-card reveal reveal-d1" data-category="sports">
+        <div class="event-img"><img src="https://picsum.photos/seed/water-sports-champ/600/340.jpg" alt="Water Sports"></div>
+        <div class="event-body">
+          <div style="display:flex;gap:1rem;align-items:flex-start">
+            <div class="event-date-box"><span class="event-date-day">10</span><span class="event-date-month">NOV</span><span class="event-date-year">2026</span></div>
+            <div style="flex:1;min-width:0">
+              <span class="event-tag">Sports</span>
+              <h3 class="event-title">Pasikudah Water Sports Championship</h3>
+              <p class="event-desc">Jet ski racing, sailing regatta, and snorkeling competitions at Sri Lanka's premier water sports destination.</p>
+              <div class="event-meta">
+                <span><span class="iconify" data-icon="lucide:map-pin"></span>Pasikudah</span>
+                <span><span class="iconify" data-icon="lucide:clock"></span>3 Days</span>
+                <span><span class="iconify" data-icon="lucide:ticket"></span>₹1,500</span>
+              </div>
+              <button onclick="openRegister('Water Sports Championship','Nov 10-12, 2026')" class="btn btn-sm btn-outline" style="margin-top:.75rem;border-radius:99px">Register Interest</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event 5 -->
+      <div class="event-card reveal reveal-d2" data-category="food">
+        <div class="event-img"><img src="https://picsum.photos/seed/food-festival-batti/600/340.jpg" alt="Food Festival"></div>
+        <div class="event-body">
+          <div style="display:flex;gap:1rem;align-items:flex-start">
+            <div class="event-date-box"><span class="event-date-day">18</span><span class="event-date-month">DEC</span><span class="event-date-year">2026</span></div>
+            <div style="flex:1;min-width:0">
+              <span class="event-tag">Food</span>
+              <h3 class="event-title">Eastern Food Festival</h3>
+              <p class="event-desc">Taste the best of Eastern cuisine — crab curry, pittu, seafood, and traditional sweets from local chefs.</p>
+              <div class="event-meta">
+                <span><span class="iconify" data-icon="lucide:map-pin"></span>Town Hall Grounds</span>
+                <span><span class="iconify" data-icon="lucide:clock"></span>2 Days</span>
+                <span><span class="iconify" data-icon="lucide:ticket"></span>₹200</span>
+              </div>
+              <button onclick="openRegister('Eastern Food Festival','Dec 18-19, 2026')" class="btn btn-sm btn-outline" style="margin-top:.75rem;border-radius:99px">Register Interest</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event 6 -->
+      <div class="event-card reveal reveal-d3" data-category="cultural">
+        <div class="event-img"><img src="https://picsum.photos/seed/thaipongal-batti/600/340.jpg" alt="Thai Pongal"></div>
+        <div class="event-body">
+          <div style="display:flex;gap:1rem;align-items:flex-start">
+            <div class="event-date-box"><span class="event-date-day">14</span><span class="event-date-month">JAN</span><span class="event-date-year">2027</span></div>
+            <div style="flex:1;min-width:0">
+              <span class="event-tag">Cultural</span>
+              <h3 class="event-title">Thai Pongal Celebrations</h3>
+              <p class="event-desc">Traditional harvest festival with pongal cooking, kolam art, cultural performances, and temple ceremonies.</p>
+              <div class="event-meta">
+                <span><span class="iconify" data-icon="lucide:map-pin"></span>City-wide</span>
+                <span><span class="iconify" data-icon="lucide:clock"></span>4 Days</span>
+                <span><span class="iconify" data-icon="lucide:users"></span>Free</span>
+              </div>
+              <button onclick="openRegister('Thai Pongal Celebrations','Jan 14-17, 2027')" class="btn btn-sm btn-outline" style="margin-top:.75rem;border-radius:99px">Register Interest</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event 7 -->
+      <div class="event-card reveal reveal-d1" data-category="cultural">
+        <div class="event-img"><img src="https://picsum.photos/seed/music-night-batti/600/340.jpg" alt="Music Night"></div>
+        <div class="event-body">
+          <div style="display:flex;gap:1rem;align-items:flex-start">
+            <div class="event-date-box"><span class="event-date-day">28</span><span class="event-date-month">FEB</span><span class="event-date-year">2027</span></div>
+            <div style="flex:1;min-width:0">
+              <span class="event-tag">Cultural</span>
+              <h3 class="event-title">Lagoon Music Night</h3>
+              <p class="event-desc">Live music by the lagoon featuring traditional Tamil artists and contemporary performers under the stars.</p>
+              <div class="event-meta">
+                <span><span class="iconify" data-icon="lucide:map-pin"></span>Lagoon Front</span>
+                <span><span class="iconify" data-icon="lucide:clock"></span>1 Evening</span>
+                <span><span class="iconify" data-icon="lucide:ticket"></span>₹750</span>
+              </div>
+              <button onclick="openRegister('Lagoon Music Night','Feb 28, 2027')" class="btn btn-sm btn-outline" style="margin-top:.75rem;border-radius:99px">Register Interest</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event 8 -->
+      <div class="event-card reveal reveal-d2" data-category="sports">
+        <div class="event-img"><img src="https://picsum.photos/seed/marathon-batti/600/340.jpg" alt="Marathon"></div>
+        <div class="event-body">
+          <div style="display:flex;gap:1rem;align-items:flex-start">
+            <div class="event-date-box"><span class="event-date-day">15</span><span class="event-date-month">MAR</span><span class="event-date-year">2027</span></div>
+            <div style="flex:1;min-width:0">
+              <span class="event-tag">Sports</span>
+              <h3 class="event-title">Batticaloa Lagoon Marathon</h3>
+              <p class="event-desc">Scenic marathon route along the lagoon with 5K, 10K, half, and full marathon options for all fitness levels.</p>
+              <div class="event-meta">
+                <span><span class="iconify" data-icon="lucide:map-pin"></span>Lagoon Road</span>
+                <span><span class="iconify" data-icon="lucide:clock"></span>1 Day</span>
+                <span><span class="iconify" data-icon="lucide:ticket"></span>₹1,000</span>
+              </div>
+              <button onclick="openRegister('Lagoon Marathon','Mar 15, 2027')" class="btn btn-sm btn-outline" style="margin-top:.75rem;border-radius:99px">Register Interest</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event 9 -->
+      <div class="event-card reveal reveal-d3" data-category="festival">
+        <div class="event-img"><img src="https://picsum.photos/seed/kite-festival-batti/600/340.jpg" alt="Kite Festival"></div>
+        <div class="event-body">
+          <div style="display:flex;gap:1rem;align-items:flex-start">
+            <div class="event-date-box"><span class="event-date-day">02</span><span class="event-date-month">APR</span><span class="event-date-year">2027</span></div>
+            <div style="flex:1;min-width:0">
+              <span class="event-tag">Festival</span>
+              <h3 class="event-title">Batticaloa Kite Festival</h3>
+              <p class="event-desc">Colorful kite-flying competition on Kallady Beach with kite-making workshops, food stalls, and evening entertainment.</p>
+              <div class="event-meta">
+                <span><span class="iconify" data-icon="lucide:map-pin"></span>Kallady Beach</span>
+                <span><span class="iconify" data-icon="lucide:clock"></span>1 Day</span>
+                <span><span class="iconify" data-icon="lucide:users"></span>Free</span>
+              </div>
+              <button onclick="openRegister('Kite Festival','Apr 2, 2027')" class="btn btn-sm btn-outline" style="margin-top:.75rem;border-radius:99px">Register Interest</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event 10 -->
+      <div class="event-card reveal reveal-d1" data-category="heritage">
+        <div class="event-img"><img src="https://picsum.photos/seed/photography-walk-batti/600/340.jpg" alt="Photo Walk"></div>
+        <div class="event-body">
+          <div style="display:flex;gap:1rem;align-items:flex-start">
+            <div class="event-date-box"><span class="event-date-day">18</span><span class="event-date-month">APR</span><span class="event-date-year">2027</span></div>
+            <div style="flex:1;min-width:0">
+              <span class="event-tag">Heritage</span>
+              <h3 class="event-title">Heritage Photo Walk</h3>
+              <p class="event-desc">Guided photography walk through the Dutch Fort, colonial streets, and lagoon front at golden hour. All skill levels welcome.</p>
+              <div class="event-meta">
+                <span><span class="iconify" data-icon="lucide:map-pin"></span>Fort Area</span>
+                <span><span class="iconify" data-icon="lucide:clock"></span>3 Hours</span>
+                <span><span class="iconify" data-icon="lucide:ticket"></span>₹350</span>
+              </div>
+              <button onclick="openRegister('Heritage Photo Walk','Apr 18, 2027')" class="btn btn-sm btn-outline" style="margin-top:.75rem;border-radius:99px">Register Interest</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- No Results -->
+    <div class="no-results" id="noResults">
+      <span class="iconify" data-icon="lucide:calendar-x"></span>
+      <p style="font-size:1.1rem;font-weight:600;margin-bottom:.35rem">No events found</p>
+      <p style="font-size:.9rem;color:var(--text-30)">Try selecting a different category or check back soon for new events.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- Submit Event -->
+<section class="section section-bg-mid">
+  <div class="section-container" style="max-width:42rem">
+    <div class="reveal">
+      <div class="section-header"><p class="section-label">Community</p><h2 class="section-title">Submit Your <span class="gradient">Event</span></h2><p class="section-desc">Organizing a local event? Let us know and we'll add it to our calendar.</p></div>
+      <div class="card" style="padding:2rem">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+          <div class="form-group"><label class="form-label">Event Name *</label><input type="text" id="evtName" class="form-input" placeholder="Your event name" required><p class="form-error" id="evtNameErr">Please enter event name</p></div>
+          <div class="form-group"><label class="form-label">Date *</label><input type="date" id="evtDate" class="form-input" required><p class="form-error" id="evtDateErr">Please select a date</p></div>
+          <div class="form-group"><label class="form-label">Category *</label><select id="evtCategory" class="form-select" required><option value="">Select category</option><option>Festival</option><option>Cultural</option><option>Sports</option><option>Food</option><option>Heritage</option><option>Carnival</option></select><p class="form-error" id="evtCatErr">Please select a category</p></div>
+          <div class="form-group"><label class="form-label">Location *</label><input type="text" id="evtLocation" class="form-input" placeholder="Venue or area" required><p class="form-error" id="evtLocErr">Please enter location</p></div>
+        </div>
+        <div class="form-group"><label class="form-label">End Date (if multi-day)</label><input type="date" id="evtEndDate" class="form-input"></div>
+        <div class="form-group"><label class="form-label">Description *</label><textarea id="evtDesc" class="form-textarea" rows="3" placeholder="Brief description of your event" required></textarea><p class="form-error" id="evtDescErr">Please enter a description</p></div>
+        <div class="form-group"><label class="form-label">Entry Fee</label><input type="text" id="evtFee" class="form-input" placeholder="e.g., Free, ₹500, Contact for pricing"></div>
+        <div class="form-group"><label class="form-label">Contact Email *</label><input type="email" id="evtEmail" class="form-input" placeholder="organizer@email.com" required><p class="form-error" id="evtEmailErr">Please enter a valid email</p></div>
+        <div class="form-group"><label class="form-label">Contact Phone</label><input type="tel" id="evtPhone" class="form-input" placeholder="+94 77 123 4567"></div>
+        <div class="form-check" style="margin-bottom:1.5rem"><input type="checkbox" id="evtAgree" required><label for="evtAgree">I confirm this event information is accurate and I have permission to submit it.</label></div>
+        <button onclick="submitEvent()" class="btn btn-primary" style="width:100%;justify-content:center" id="evtSubmitBtn">Submit Event for Review</button>
+        <div id="evtSuccessMsg" style="display:none;margin-top:1rem;padding:1rem;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.25);border-radius:var(--radius-md);text-align:center">
+          <p style="color:#4ADE80;font-weight:600">✅ Event submitted successfully!</p>
+          <p style="font-size:.85rem;color:var(--text-50);margin-top:.35rem">Our team will review and publish your event within 48 hours.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Events Calendar Widget -->
+<section class="section section-bg-dark">
+  <div class="section-container" style="max-width:42rem">
+    <div class="section-header reveal"><p class="section-label">At a Glance</p><h2 class="section-title">Event <span class="gradient">Calendar</span></h2></div>
+    <div class="card reveal" style="padding:1.5rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
+        <button onclick="changeMonth(-1)" class="btn btn-sm btn-outline" style="border-radius:99px"><span class="iconify" data-icon="lucide:chevron-left"></span></button>
+        <h3 style="font-family:var(--font-display);font-size:1.15rem;font-weight:700" id="calMonthYear">August 2026</h3>
+        <button onclick="changeMonth(1)" class="btn btn-sm btn-outline" style="border-radius:99px"><span class="iconify" data-icon="lucide:chevron-right"></span></button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center;margin-bottom:.5rem">
+        <span style="font-size:.7rem;font-weight:600;color:var(--text-30);padding:.4rem">SUN</span>
+        <span style="font-size:.7rem;font-weight:600;color:var(--text-30);padding:.4rem">MON</span>
+        <span style="font-size:.7rem;font-weight:600;color:var(--text-30);padding:.4rem">TUE</span>
+        <span style="font-size:.7rem;font-weight:600;color:var(--text-30);padding:.4rem">WED</span>
+        <span style="font-size:.7rem;font-weight:600;color:var(--text-30);padding:.4rem">THU</span>
+        <span style="font-size:.7rem;font-weight:600;color:var(--text-30);padding:.4rem">FRI</span>
+        <span style="font-size:.7rem;font-weight:600;color:var(--text-30);padding:.4rem">SAT</span>
+      </div>
+      <div id="calGrid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center"></div>
+      <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center">
+        <span style="display:flex;align-items:center;gap:.3rem;font-size:.7rem;color:var(--text-50)"><span style="width:8px;height:8px;border-radius:50%;background:var(--primary-light)"></span>Event day</span>
+        <span style="display:flex;align-items:center;gap:.3rem;font-size:.7rem;color:var(--text-50)"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent-warm)"></span>Today</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<!-- AI Chatbot -->
+<button class="ai-fab" id="aiFab" aria-label="AI Travel Assistant"><span class="ai-fab-pulse"></span><span class="iconify" id="aiFabIcon" data-icon="lucide:bot"></span></button>
+<div class="ai-chat" id="aiChat">
+  <div class="ai-header">
+    <div class="ai-header-left"><div class="ai-avatar"><span class="iconify text-white text-sm" data-icon="lucide:bot"></span></div><div><p style="font-weight:600;font-size:.85rem">BattiBuddy</p><div class="ai-status"><span class="ai-status-dot"></span>Online</div></div></div>
+    <button onclick="toggleAI()" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--text-50)"><span class="iconify" data-icon="lucide:x"></span></button>
+  </div>
+  <div class="ai-messages" id="aiMessages"><div class="ai-msg bot"><p>📅 Looking for something specific? Ask about upcoming events or festivals!</p></div></div>
+  <div class="ai-suggestions" id="aiSuggestions">
+    <button class="ai-chip" onclick="sendAI('What events are coming up?')">📅 Upcoming events</button>
+    <button class="ai-chip" onclick="sendAI('Any festivals in August?')">🎉 August festivals</button>
+    <button class="ai-chip" onclick="sendAI('Tell me about Thai Pongal')">🏮 Thai Pongal</button>
+    <button class="ai-chip" onclick="sendAI('Free events in Batticaloa?')">🆓 Free events</button>
+  </div>
+  <div class="ai-input-bar"><form onsubmit="handleAISend(event)" style="display:flex;gap:.5rem;width:100%"><input type="text" id="aiInput" placeholder="Ask about events..." class="ai-input"><button type="submit" class="ai-send"><span class="iconify text-white" data-icon="lucide:send"></span></button></form></div>
+</div>
+
+<!-- Register Interest Modal -->
+<div class="event-register-modal" id="registerModal">
+  <div class="event-register-box">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem">
+      <div>
+        <p style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--primary-light)">Register Interest</p>
+        <h3 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;margin-top:.25rem" id="regEventName"></h3>
+        <p style="font-size:.85rem;color:var(--text-50);margin-top:.15rem" id="regEventDate"></p>
+      </div>
+      <button onclick="closeRegister()" style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:var(--text-50);flex-shrink:0"><span class="iconify" data-icon="lucide:x"></span></button>
+    </div>
+    <div class="form-group"><label class="form-label">Full Name *</label><input type="text" id="regName" class="form-input" placeholder="Your full name"></div>
+    <div class="form-group"><label class="form-label">Email *</label><input type="email" id="regEmail" class="form-input" placeholder="your@email.com"></div>
+    <div class="form-group"><label class="form-label">Phone</label><input type="tel" id="regPhone" class="form-input" placeholder="+94 77 123 4567"></div>
+    <div class="form-group"><label class="form-label">Number of People</label><select id="regPeople" class="form-select"><option>1</option><option selected>2</option><option>3-5</option><option>6-10</option><option>10+</option></select></div>
+    <button onclick="submitRegister()" class="btn btn-primary" style="width:100%;justify-content:center" id="regSubmitBtn">Register</button>
+    <div id="regSuccess" style="display:none;margin-top:1rem;padding:1rem;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.25);border-radius:var(--radius-md);text-align:center">
+      <p style="color:#4ADE80;font-weight:600">✅ Registered! We'll send you updates about this event.</p>
+    </div>
+  </div>
+</div>
+
+<button class="back-top" id="backTop"><span class="iconify" data-icon="lucide:chevron-up"></span></button>
+<div class="cookie-bar" id="cookieBar"><div style="max-width:80rem;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap"><p style="font-size:.85rem;color:var(--text-50)">We use cookies. <a href="#" style="color:var(--primary-light);text-decoration:underline">Privacy Policy</a></p><button style="padding:.5rem 1.25rem;background:var(--primary);color:#fff;font-size:.85rem;font-weight:600;border-radius:.5rem;cursor:pointer">Got it!</button></div></div>
+
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<script src="js/common.js"></script>
+<script src="js/ai-chat.js"></script>
+<script>
+// ============================================
+// EVENTS PAGE — FILTER, CALENDAR, REGISTER
+// ============================================
+
+// ----- Filter Tabs -----
+const filterBtns = document.querySelectorAll('.filter-btn');
+const eventCards = document.querySelectorAll('.event-card');
+const eventCount = document.getElementById('eventCount');
+const noResults = document.getElementById('noResults');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Update active tab
+    filterBtns.forEach(b => {
+      b.classList.remove('btn-primary', 'active');
+      b.classList.add('btn-outline');
+    });
+    btn.classList.remove('btn-outline');
+    btn.classList.add('btn-primary', 'active');
+
+    const filter = btn.dataset.filter;
+    let visibleCount = 0;
+
+    eventCards.forEach(card => {
+      const cat = card.dataset.category;
+      if (filter === 'all' || cat === filter) {
+        card.classList.remove('hidden-by-filter');
+        visibleCount++;
+      } else {
+        card.classList.add('hidden-by-filter');
+      }
+    });
+
+    // Update count
+    if (eventCount) eventCount.innerHTML = `Showing <span>${visibleCount}</span> event${visibleCount !== 1 ? 's' : ''}`;
+
+    // Show/hide no results
+    if (noResults) noResults.classList.toggle('show', visibleCount === 0);
+  });
+});
+
+// ----- Register Interest Modal -----
+function openRegister(name, date) {
+  document.getElementById('regEventName').textContent = name;
+  document.getElementById('regEventDate').textContent = date;
+  document.getElementById('regSuccess').style.display = 'none';
+  document.getElementById('regSubmitBtn').disabled = false;
+  document.getElementById('regSubmitBtn').textContent = 'Register';
+  document.getElementById('regName').value = '';
+  document.getElementById('regEmail').value = '';
+  document.getElementById('regPhone').value = '';
+  document.getElementById('registerModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeRegister() {
+  document.getElementById('registerModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('registerModal').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeRegister();
+});
+
+function submitRegister() {
+  const name = document.getElementById('regName').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  if (!name || !email) {
+    if (!name) document.getElementById('regName').style.borderColor = 'var(--rose)';
+    if (!email) document.getElementById('regEmail').style.borderColor = 'var(--rose)';
+    return;
+  }
+  document.getElementById('regName').style.borderColor = '';
+  document.getElementById('regEmail').style.borderColor = '';
+  document.getElementById('regSubmitBtn').textContent = 'Submitting...';
+  document.getElementById('regSubmitBtn').disabled = true;
+  setTimeout(() => {
+    document.getElementById('regSuccess').style.display = 'block';
+  }, 800);
+}
+
+// ----- Submit Event Form -----
+function submitEvent() {
+  let valid = true;
+  const fields = [
+    { id: 'evtName', err: 'evtNameErr', check: v => v.length > 0 },
+    { id: 'evtDate', err: 'evtDateErr', check: v => v.length > 0 },
+    { id: 'evtCategory', err: 'evtCatErr', check: v => v.length > 0 },
+    { id: 'evtLocation', err: 'evtLocErr', check: v => v.length > 0 },
+    { id: 'evtDesc', err: 'evtDescErr', check: v => v.length > 0 },
+    { id: 'evtEmail', err: 'evtEmailErr', check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) }
+  ];
+  fields.forEach(f => {
+    const val = document.getElementById(f.id).value.trim();
+    const errEl = document.getElementById(f.err);
+    if (!f.check(val)) { errEl.classList.add('show'); valid = false; }
+    else { errEl.classList.remove('show'); }
+  });
+  if (!document.getElementById('evtAgree').checked) {
+    alert('Please confirm the event information is accurate.');
+    valid = false;
+  }
+  if (!valid) return;
+
+  const btn = document.getElementById('evtSubmitBtn');
+  btn.textContent = 'Submitting...';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.style.display = 'none';
+    document.getElementById('evtSuccessMsg').style.display = 'block';
+    // Reset form
+    ['evtName','evtDate','evtEndDate','evtCategory','evtLocation','evtDesc','evtFee','evtEmail','evtPhone'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    document.getElementById('evtAgree').checked = false;
+  }, 1200);
+}
+
+// ----- Mini Calendar -----
+const eventDates = {
+  '2026-8-15': 'Lagoon Festival',
+  '2026-8-16': 'Lagoon Festival',
+  '2026-8-17': 'Lagoon Festival',
+  '2026-9-5': 'Beach Carnival',
+  '2026-9-6': 'Beach Carnival',
+  '2026-10-20': 'Heritage Week',
+  '2026-10-21': 'Heritage Week',
+  '2026-10-22': 'Heritage Week',
+  '2026-10-23': 'Heritage Week',
+  '2026-10-24': 'Heritage Week',
+  '2026-10-25': 'Heritage Week',
+  '2026-10-26': 'Heritage Week',
+  '2026-11-10': 'Water Sports',
+  '2026-11-11': 'Water Sports',
+  '2026-11-12': 'Water Sports',
+  '2026-12-18': 'Food Festival',
+  '2026-12-19': 'Food Festival',
+  '2027-1-14': 'Thai Pongal',
+  '2027-1-15': 'Thai Pongal',
+  '2027-1-16': 'Thai Pongal',
+  '2027-1-17': 'Thai Pongal',
+  '2027-2-28': 'Music Night',
+  '2027-3-15': 'Lagoon Marathon',
+  '2027-4-2': 'Kite Festival',
+  '2027-4-18': 'Photo Walk'
+};
+
+let calYear = 2026, calMonth = 7; // August 2026 (0-indexed)
+const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+function renderCalendar() {
+  const grid = document.getElementById('calGrid');
+  const label = document.getElementById('calMonthYear');
+  if (!grid || !label) return;
+
+  label.textContent = `${monthNames[calMonth]} ${calYear}`;
+
+  const firstDay = new Date(calYear, calMonth, 1).getDay();
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+  const today = new Date();
+  const todayStr = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+
+  let html = '';
+
+  // Empty cells before first day
+  for (let i = 0; i < firstDay; i++) {
+    html += '<div style="padding:.5rem"></div>';
+  }
+
+  // Day cells
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateStr = `${calYear}-${calMonth + 1}-${d}`;
+    const hasEvent = eventDates[dateStr];
+    const isToday = dateStr === todayStr;
+    let bg = 'transparent';
+    let color = 'var(--text-70)';
+    let weight = '400';
+    let radius = '50%';
+    let dot = '';
+
+    if (isToday) {
+      bg = 'rgba(251,191,36,.2)';
+      color = 'var(--accent-warm)';
+      weight = '700';
+    }
+    if (hasEvent) {
+      if (!isToday) { bg = 'var(--primary-dim)'; color = 'var(--primary-light)'; weight = '600'; }
+      dot = `<div style="width:5px;height:5px;border-radius:50%;background:var(--primary-light);margin:2px auto 0"></div>`;
+    }
+
+    html += `<div style="padding:.4rem;cursor:${hasEvent ? 'pointer' : 'default'}" ${hasEvent ? `title="${hasEvent}" onclick="highlightEventDay('${dateStr}')"` : ''}>
+      <div style="width:32px;height:32px;border-radius:${radius};background:${bg};display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:.85rem;font-weight:${weight};color:${color};transition:all .2s">${d}</div>
+      ${dot}
+    </div>`;
+  }
+
+  grid.innerHTML = html;
+}
+
+function changeMonth(dir) {
+  calMonth += dir;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  renderCalendar();
+}
+
+function highlightEventDay(dateStr) {
+  const eventName = eventDates[dateStr];
+  if (eventName) {
+    // Scroll to and briefly highlight matching event card
+    eventCards.forEach(card => {
+      card.style.transition = 'box-shadow .3s';
+    });
+    // Flash the calendar cell
+    sendAI(`Tell me about the ${eventName} event`);
+  }
+}
+
+// Init calendar on load
+document.addEventListener('DOMContentLoaded', () => {
+  renderCalendar();
+});
+
+// Escape key closes modal
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeRegister();
+});
+</script>
+</body>
+</html>

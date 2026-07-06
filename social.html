@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Media — Batticaloa Tourism</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏝️</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/common.css">
+  <style>
+    .tiktok-logo{display:inline-flex;align-items:center;gap:.3rem;font-weight:800;font-size:1.1rem;letter-spacing:-.02em}
+    .tiktok-logo .t1{color:#fff}.tiktok-logo .t2{color:#FE2C55}.tiktok-logo .t3{color:#25F4EE}
+    .ig-logo{display:inline-flex;align-items:center;gap:.5rem;font-weight:700;font-size:1.1rem}
+    .ig-logo .ig-icon{width:32px;height:32px;border-radius:8px;background:linear-gradient(45deg,#F09433,#E6683C,#DC2743,#CC2366,#BC1888);display:flex;align-items:center;justify-content:center}
+  </style>
+</head>
+<body>
+<div id="loader"><div class="loader-ring"></div><div class="loader-text">Batticaloa Tourism</div></div>
+<div id="nav-placeholder"></div>
+
+<div class="page-hero">
+  <div class="page-hero-bg"><img src="https://picsum.photos/seed/social-hero-batti/1920/800.jpg" alt="Social Media"></div>
+  <div class="page-hero-content">
+    <div class="breadcrumb"><a href="index.html">Home</a><span class="iconify" data-icon="lucide:chevron-right" style="font-size:.75rem"></span>Social Media</div>
+    <h1>Follow Us on <span class="text-gradient">Social Media</span></h1>
+    <p style="color:var(--text-70);margin-top:.75rem">Daily inspiration, travel tips, and behind-the-scenes glimpses of Batticaloa life.</p>
+  </div>
+</div>
+
+<!-- Find Us On TikTok -->
+<section class="section section-bg-dark" id="tiktok-section">
+  <div class="section-container">
+    <div class="section-header reveal">
+      <p class="section-label">TikTok</p>
+      <h2 class="section-title">Find Us on <span class="tiktok-logo"><span class="t1">Tik</span><span class="t2">T</span><span class="t3">ok</span></span>!</h2>
+      <p class="section-desc">Short videos showcasing Batticaloa's beauty — sunsets, food, wildlife, and hidden gems. Follow along for daily travel inspiration!</p>
+    </div>
+
+    <!-- TikTok Profile Card -->
+    <div style="max-width:32rem;margin:0 auto 2.5rem" class="reveal">
+      <a href="https://tiktok.com/@batticaloatourism" target="_blank" class="social-platform-card" style="padding:1.5rem;justify-content:center;flex-direction:column;text-align:center;gap:1rem">
+        <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#FE2C55,#25F4EE);display:flex;align-items:center;justify-content:center;font-size:1.75rem">🎵</div>
+        <div>
+          <p style="font-weight:700;font-size:1.15rem">@batticaloatourism</p>
+          <p style="font-size:.85rem;color:var(--text-50);margin-top:.25rem">Batticaloa's official tourism TikTok — lagoon sunsets, crab curry, wild elephants, and everything in between.</p>
+        </div>
+        <div style="display:flex;gap:2rem">
+          <div style="text-align:center"><p style="font-weight:700;color:var(--text)">24.5K</p><p style="font-size:.7rem;color:var(--text-30)">Followers</p></div>
+          <div style="text-align:center"><p style="font-weight:700;color:var(--text)">142</p><p style="font-size:.7rem;color:var(--text-30)">Videos</p></div>
+          <div style="text-align:center"><p style="font-weight:700;color:var(--text)">541K</p><p style="font-size:.7rem;color:var(--text-30)">Likes</p></div>
+        </div>
+        <span class="btn btn-sm" style="background:linear-gradient(135deg,#FE2C55,#25F4EE);color:#fff;border-radius:99px;display:inline-flex;align-items:center;gap:.4rem"><span class="iconify" data-icon="lucide:plus"></span> Follow on TikTok</span>
+      </a>
+    </div>
+
+    <!-- TikTok Videos Grid -->
+    <div class="tiktok-grid" id="tiktokGrid">
+      <!-- Populated by social-api.js -->
+    </div>
+  </div>
+</section>
+
+<!-- Find Us On Instagram -->
+<section class="section section-bg-mid" id="instagram-section">
+  <div class="section-container">
+    <div class="section-header reveal">
+      <p class="section-label">Instagram</p>
+      <h2 class="section-title">Find Us on <span class="ig-logo"><span class="ig-icon"><span class="iconify text-white" data-icon="lucide:instagram" style="font-size:1.1rem"></span></span> Instagram</span></h2>
+      <p class="section-desc">Stunning photos, reels, and stories from Batticaloa — lagoon reflections, golden beaches, vibrant culture, and more.</p>
+    </div>
+
+    <!-- Instagram Profile Card -->
+    <div style="max-width:32rem;margin:0 auto 2.5rem" class="reveal">
+      <a href="https://instagram.com/batticaloatourism" target="_blank" class="social-platform-card" style="padding:1.5rem;justify-content:center;flex-direction:column;text-align:center;gap:1rem">
+        <div class="ig-icon" style="width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center"><span class="iconify text-white" style="font-size:2rem" data-icon="lucide:instagram"></span></div>
+        <div>
+          <p style="font-weight:700;font-size:1.15rem">@batticaloatourism</p>
+          <p style="font-size:.85rem;color:var(--text-50);margin-top:.25rem">Official Batticaloa Tourism Instagram — your daily dose of Eastern Sri Lanka beauty.</p>
+        </div>
+        <div style="display:flex;gap:2rem">
+          <div style="text-align:center"><p style="font-weight:700;color:var(--text)">18.2K</p><p style="font-size:.7rem;color:var(--text-30)">Followers</p></div>
+          <div style="text-align:center"><p style="font-weight:700;color:var(--text)">326</p><p style="font-size:.7rem;color:var(--text-30)">Posts</p></div>
+          <div style="text-align:center"><p style="font-weight:700;color:var(--text)">4.2%</p><p style="font-size:.7rem;color:var(--text-30)">Engagement</p></div>
+        </div>
+        <span class="btn btn-sm" style="background:linear-gradient(45deg,#F09433,#E6683C,#DC2743,#CC2366,#BC1888);color:#fff;border-radius:99px;display:inline-flex;align-items:center;gap:.4rem"><span class="iconify" data-icon="lucide:plus"></span> Follow on Instagram</span>
+      </a>
+    </div>
+
+    <!-- Instagram Posts Grid -->
+    <div class="ig-grid" id="igGrid">
+      <!-- Populated by social-api.js -->
+    </div>
+  </div>
+</section>
+
+<!-- Subscribe -->
+<section class="section section-bg-dark">
+  <div class="section-container" style="max-width:48rem">
+    <div class="subscribe-box reveal" style="padding:3rem;text-align:center;position:relative">
+      <div style="width:56px;height:56px;border-radius:1rem;background:linear-gradient(135deg,var(--primary),var(--primary-mid));display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;box-shadow:var(--shadow-glow)"><span class="iconify text-white text-xl" data-icon="lucide:mail"></span></div>
+      <h2 style="font-family:var(--font-display);font-size:1.75rem;font-weight:700;margin-bottom:.5rem">Subscribe to Batti News</h2>
+      <p style="color:var(--text-50);margin-bottom:1.5rem;font-size:.95rem">Get travel tips, events, and exclusive offers delivered monthly.</p>
+      <form class="subscribe-form" style="display:flex;gap:.75rem;max-width:28rem;margin:0 auto;flex-wrap:wrap;justify-content:center">
+        <input type="email" required placeholder="Enter your email" class="subscribe-input" style="flex:1;min-width:200px">
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
+      <p class="subscribe-msg" style="display:none;margin-top:.75rem;font-size:.85rem;font-weight:600"></p>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<button class="ai-fab" id="aiFab" aria-label="AI Travel Assistant"><span class="ai-fab-pulse"></span><span class="iconify" id="aiFabIcon" data-icon="lucide:bot"></span></button>
+<div class="ai-chat" id="aiChat"><div class="ai-header"><div class="ai-header-left"><div class="ai-avatar"><span class="iconify text-white text-sm" data-icon="lucide:bot"></span></div><div><p style="font-weight:600;font-size:.85rem">BattiBuddy</p><div class="ai-status"><span class="ai-status-dot"></span>Online</div></div></div><button onclick="toggleAI()" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--text-50)"><span class="iconify" data-icon="lucide:x"></span></button></div><div class="ai-messages" id="aiMessages"><div class="ai-msg bot"><p>📱 Follow us for daily inspiration! Ask me anything about Batticaloa.</p></div></div><div class="ai-suggestions" id="aiSuggestions"><button class="ai-chip" onclick="sendAI('Best photo spots?')">📸 Photo spots</button><button class="ai-chip" onclick="sendAI('What to film at the lagoon?')">🎬 Filming tips</button><button class="ai-chip" onclick="sendAI('Best Instagram spots?')">🖼️ IG spots</button></div><div class="ai-input-bar"><form onsubmit="handleAISend(event)" style="display:flex;gap:.5rem;width:100%"><input type="text" id="aiInput" placeholder="Ask about Batticaloa..." class="ai-input"><button type="submit" class="ai-send"><span class="iconify text-white" data-icon="lucide:send"></span></button></form></div></div>
+<button class="back-top" id="backTop"><span class="iconify" data-icon="lucide:chevron-up"></span></button>
+<div class="cookie-bar" id="cookieBar"><div style="max-width:80rem;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap"><p style="font-size:.85rem;color:var(--text-50)">We use cookies. <a href="#" style="color:var(--primary-light);text-decoration:underline">Privacy Policy</a></p><button style="padding:.5rem 1.25rem;background:var(--primary);color:#fff;font-size:.85rem;font-weight:600;border-radius:.5rem;cursor:pointer">Got it!</button></div></div>
+
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<script src="js/common.js"></script>
+<script src="js/ai-chat.js"></script>
+<script src="js/social-api.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Override reveal observer to make it globally accessible for social API
+  window._revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => window._revealObs.observe(el));
+
+  // Load social content
+  TikTokAPI.renderVideos('tiktokGrid');
+  InstagramAPI.renderPosts('igGrid', 8, true);
+});
+</script>
+</body>
+</html>
